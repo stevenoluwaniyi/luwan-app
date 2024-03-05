@@ -1,0 +1,3 @@
+skipped = "!f(){ git ls-files -v ${1} | grep ^S;};f"
+skip = update-index --skip-worktree --
+unskip = update-index --no-skip-worktree --
