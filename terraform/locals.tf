@@ -13,6 +13,8 @@ locals {
 
   s3_bucket_name = "luwan-${random_integer.s3.result}-tf"
 
+  instance_type = data.aws_ec2_instance_types.instance_type.instance_types[0]
+
 }
 
 resource "random_integer" "s3" {

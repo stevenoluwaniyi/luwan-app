@@ -62,7 +62,7 @@ resource "aws_subnet" "darasimi_private_subnet2" {
   availability_zone       = data.aws_availability_zones.available.names[1]
   map_public_ip_on_launch = false
   tags = {
-    Name = "darasimi-private-subnet-1"
+    Name = "darasimi-private-subnet-2"
   }
 }
 

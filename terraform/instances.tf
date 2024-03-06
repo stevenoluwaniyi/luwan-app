@@ -106,18 +106,14 @@ resource "aws_launch_template" "luwan_lt" {
   name = "luwan_lt"
 
   block_device_mappings {
-    device_name = "/dev/sda"
+    device_name = "/dev/sda1"
 
     ebs {
-      volume_size = 20
+      volume_size           = 20
+      volume_type           = "gp3"
+      delete_on_termination = true
     }
   }
-
-  cpu_options {
-    core_count       = 4
-    threads_per_core = 2
-  }
-
 
   disable_api_termination = true
 
@@ -125,19 +121,15 @@ resource "aws_launch_template" "luwan_lt" {
 
 
   iam_instance_profile {
-    name = "test"
+    name = aws_iam_instance_profile.nginx_profile.name
   }
 
   image_id = data.aws_ami.eks.image_id
 
-  instance_type = data.aws_ec2_instance_types.instance_type.instance_types[0]
+  instance_type = local.instance_type
 
   monitoring {
     enabled = var.enable_monitoring
-  }
-
-  placement {
-    availability_zone = data.aws_availability_zones.available.names[0]
   }
 
   vpc_security_group_ids = [aws_security_group.dara_sg.id]
