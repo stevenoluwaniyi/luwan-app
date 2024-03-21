@@ -1,27 +1,19 @@
 #S3 bucket
 resource "aws_s3_bucket" "luwan_s3" {
 
-  bucket = local.s3_bucket_name
-  tags   = local.common_tags
+  bucket        = local.s3_bucket_name
+  tags          = local.common_tags
+  force_destroy = true
 }
 
 #s3 object - drop website files in bucket
 
-resource "aws_s3_object" "website" {
-  bucket = aws_s3_bucket.luwan_s3.bucket
-  key    = "/website/index.html"
-  source = "./website/index.html"
-
-  tags = local.common_tags
-
-}
-
-resource "aws_s3_object" "graphic" {
-  bucket = aws_s3_bucket.luwan_s3.bucket
-  key    = "/website/Globo_logo_Vert.png"
-  source = "./website/Globo_logo_Vert.png"
-
-  tags = local.common_tags
+resource "aws_s3_object" "website_content" {
+  bucket   = aws_s3_bucket.luwan_s3.bucket
+  for_each = local.website_content
+  key      = each.value
+  source   = "${path.root}/${each.value}"
+  tags     = local.common_tags
 
 }
 

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/security-groups: sg-0eb164e00c118615a
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"alb.ingress.kubernetes.io/scheme":"internet-facing","alb.ingress.kubernetes.io/target-type":"ip"},"name":"ingress-2048","namespace":"game-2048"},"spec":{"ingressClassName":"alb","rules":[{"http":{"paths":[{"backend":{"service":{"name":"service-2048","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+  creationTimestamp: "2024-03-21T18:41:27Z"
+  finalizers:
+  - ingress.k8s.aws/resources
+  generation: 1
+  name: eks-ingress
+  namespace: darasimi
+  resourceVersion: "2816266"
+  uid: 61577264-e813-49e4-9931-aec7ba4b2da9
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: eks-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

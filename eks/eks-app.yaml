@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-deployment
+  namespace: darasimi
+  labels:
+    app: eks-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eks-deployment
+  template:
+    metadata:
+      labels:
+        app: eks-deployment
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: nginx
+        image: public.ecr.aws/nginx/nginx:1.23
+        ports:
+        - name: http
+          containerPort: 80
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: linux

@@ -11,6 +11,11 @@ data "aws_ami" "eks" {
     values = ["*eks-node*"]
   }
 
+  filter {
+    name   = "architecture"
+    values = [var.architecture]
+  }
+
 }
 
 data "aws_ec2_instance_types" "instance_type" {
@@ -20,3 +25,12 @@ data "aws_ec2_instance_types" "instance_type" {
     values = [var.instance_type]
   }
 }
+
+data "aws_eks_cluster" "luwan_cluster" {
+  name = aws_eks_cluster.luwan_eks.name
+}
+
+# data "aws_iam_policy_document" "lb_policy"
+# {
+
+# }

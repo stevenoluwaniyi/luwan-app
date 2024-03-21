@@ -48,6 +48,26 @@ variable "public_subnets_cidr_blocks" {
   default = ["10.0.0.0/24", "10.0.1.0/24"]
 }
 
+variable "public_subnets_count" {
+  type    = string
+  default = 2
+}
+
+variable "private_subnets_count" {
+  type    = string
+  default = 2
+}
+
+variable "eip_count" {
+  type    = string
+  default = 2
+}
+
+variable "gateway_count" {
+  type    = string
+  default = 2
+}
+
 variable "private_subnets_cidr_blocks" {
   type    = list(string)
   default = ["10.0.2.0/24", "10.0.3.0/24"]
@@ -95,5 +115,20 @@ variable "billing_code_tag" {
 
 variable "instance_type" {
   type    = string
-  default = "t3.micro"
+  default = "t2.micro"
+}
+
+variable "prefix_name" {
+  type    = string
+  default = "luwan-"
+}
+
+variable "resource_name" {
+  type    = string
+  default = "resource"
+}
+
+variable "architecture" {
+  type    = string
+  default = "x86_64"
 }
